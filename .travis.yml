@@ -1,0 +1,39 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+before_install:
+  - pip install --user cpp-coveralls
+  - eval "${MATRIX_EVAL}"
+
+install:
+  - CXXFLAGS="-fprofile-arcs -ftest-coverage" make
+
+script:
+  - gcov --version
+  - make
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
