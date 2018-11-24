@@ -8,6 +8,11 @@
     #include "node.hpp"
 #endif
 
+#ifndef listNode_h
+    #define listNode_h
+    #include "listNode.hpp"
+#endif
+
 graph::graph( int size ) {
     this->size = size;
     this->table = new adjacencyNode*[ size ];
@@ -24,6 +29,34 @@ graph::~graph() {
     delete this->table;
 }
 
-char graph::getName( int index ) {
+int graph::getCountHelper( int index ) {
+    return this->table[ index ]->getCount();
+}
+
+bool graph::getCheckHelper( int index ) {
+    return this->table[ index ]->getCheck();
+}
+
+void graph::decreaseCountHelper( int index ) {
+    this->table[ index ]->decreaseCount();
+}
+
+void graph::increaseCountHelper( int index ) {
+    this->table[ index ]->increaseCount();
+}
+
+void graph::travelListHelper( int index , void display( listNode &root ) ) {
+    this->table[ index ]->travelHelper( display );
+}
+
+char graph::getNameHelper( int index ) {
     return this->table[ index ]->getName();
+}
+
+bool graph::setNode( int index , char name ) {
+    return this->table[ index ]->addListNodeHelper( name );
+}
+
+bool graph::setNodeHelper( int index , char name ) {
+    return this->setNode( index , name );
 }

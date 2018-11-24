@@ -74,6 +74,9 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
+listNode.o : $(USER_DIR)/listNode.cpp $(USER_DIR)/listNode.hpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
 node.o : $(USER_DIR)/node.cpp $(USER_DIR)/node.hpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
@@ -83,7 +86,7 @@ graph.o : $(USER_DIR)/graph.cpp $(USER_DIR)/graph.hpp
 main.o : $(USER_DIR)/main.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-graph : $(USER_DIR)/node.o $(USER_DIR)/graph.o $(USER_DIR)/main.o $(GTEST_HEADERS)
+graph : $(USER_DIR)/node.o $(USER_DIR)/graph.o $(USER_DIR)/listNode.o $(USER_DIR)/main.o $(GTEST_HEADERS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(USER_DIR)/*.o -o $@
 
 .PHONY:
