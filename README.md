@@ -16,4 +16,4 @@ make
 ./graph
 ```
 ### License
-+ This project is licensed under MIT License - see the [LICENSE](https://github.com/ambersun1234/AVL_Tree/blob/master/LICENSE) file for detail
++ This project is licensed under GNU General Public License v3.0 License - see the [LICENSE](https://github.com/ambersun1234/topological_sort/blob/master/LICENSE) file for detail
