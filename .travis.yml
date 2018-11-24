@@ -31,7 +31,10 @@ install:
 
 script:
   - gcov --version
-  - make
+  - make test
+
+after_success:
+  - coveralls --exclude googletest --exclude ".*_unittest.cpp" --gcov-options '\-lp'
 
 notifications:
   email:

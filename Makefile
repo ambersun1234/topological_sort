@@ -29,7 +29,7 @@ CXXFLAGS += -g -Wall -Wextra -pthread -std=c++1y
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = graph
+TESTS = graph graph_unittest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -85,6 +85,15 @@ graph.o : $(USER_DIR)/graph.cpp $(USER_DIR)/graph.hpp
 
 main.o : $(USER_DIR)/main.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
+
+graph_unittest.o : $(USER_DIR)/listNode.cpp $(USER_DIR)/listNode.hpp \
+				   $(USER_DIR)/node.cpp $(USER_DIR)/node.hpp \
+				   $(USER_DIR)/graph.cpp $(USER_DIR)/graph.hpp \
+				   $(USER_DIR)/unit_test.cpp $(GTEST_HEADERS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(USER_DIR)/unit_test.cpp -o $@
+
+graph_unittest : graph_unittest.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 graph : $(USER_DIR)/node.o $(USER_DIR)/graph.o $(USER_DIR)/listNode.o $(USER_DIR)/main.o $(GTEST_HEADERS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(USER_DIR)/*.o -o $@

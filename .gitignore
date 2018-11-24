@@ -31,3 +31,4 @@
 *.out
 *.app
 graph
+graph_unittest

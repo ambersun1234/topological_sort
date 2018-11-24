@@ -1,5 +1,5 @@
 # Topological Sort
-[![Build Status](https://travis-ci.com/ambersun1234/topological_sort.svg?token=e57vJgMEsZsXRodR9BkR&branch=master)](https://travis-ci.com/ambersun1234/topological_sort)
+[![Build Status](https://travis-ci.com/ambersun1234/topological_sort.svg?token=e57vJgMEsZsXRodR9BkR&branch=master)](https://travis-ci.com/ambersun1234/topological_sort) [![Coverage Status](https://coveralls.io/repos/github/ambersun1234/topological_sort/badge.svg?branch=master)](https://coveralls.io/github/ambersun1234/topological_sort?branch=master)
 <br>
 simple practice of Topological Sort
 ### Clone repo
