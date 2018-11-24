@@ -24,9 +24,11 @@ class graph {
 
         char getNameHelper( int index );
         void travelListHelper( int index , void display( listNode &root ) );
+        vector< char > updateListHelper( int index );
 
         int getCountHelper( int index );
         bool getCheckHelper( int index );
+        void setCheckHelper( int index );
         void decreaseCountHelper( int index );
         void increaseCountHelper( int index );
 };

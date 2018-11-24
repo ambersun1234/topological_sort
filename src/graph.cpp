@@ -29,12 +29,20 @@ graph::~graph() {
     delete this->table;
 }
 
+vector< char > graph::updateListHelper( int index ) {
+    return this->table[ index ]->updateList();
+}
+
 int graph::getCountHelper( int index ) {
     return this->table[ index ]->getCount();
 }
 
 bool graph::getCheckHelper( int index ) {
     return this->table[ index ]->getCheck();
+}
+
+void graph::setCheckHelper( int index ) {
+    this->table[ index ]->setCheck();
 }
 
 void graph::decreaseCountHelper( int index ) {

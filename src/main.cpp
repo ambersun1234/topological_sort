@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <stack>
+#include <vector>
 
 #ifndef node_h
     #define node_h
@@ -24,6 +26,8 @@ void displayList( listNode &root ) {
 
 int main( int argc , char const *argv[] ) {
     int tableSize;
+    stack< char > topologicalStack;
+    vector< char > tempList;
 
     cout << "how many node in the graph: ";
     cin >> tableSize;
@@ -44,13 +48,49 @@ int main( int argc , char const *argv[] ) {
             }
         } // end if
     }
+    cout << endl;
 
     for ( int i = 0 ; i < tableSize ; i++ ) {
+        if ( table->getCountHelper( i ) == 0 ) {
+            topologicalStack.push( ( char )( i + 65 ) );
+            table->setCheckHelper( i );
+        }
+
         cout << "node " << table->getNameHelper( i ) <<
             " , count = " << table->getCountHelper( i ) <<
             " , check = " << boolalpha << table->getCheckHelper( i ) <<
             " ->";
         table->travelListHelper( i , displayList );
+        cout << endl;
+    }
+    cout << endl;
+
+    if ( topologicalStack.empty() == true ) {
+        cout << "This graph can not be sort." << endl;
+        return 0;
+    }
+    else {
+        // this graph can be sort
+        cout << "Ans:";
+        while ( !topologicalStack.empty() ) {
+            char ans = topologicalStack.top();
+            topologicalStack.pop();
+
+            cout << " " << ans;
+
+            tempList = table->updateListHelper( ( int )ans - 65 );
+
+            for ( vector< char >::iterator iter = tempList.begin() ; iter != tempList.end() ; ++iter ) {
+                table->decreaseCountHelper( ( int )( *iter ) - 65 );
+            }
+
+            for ( int i = 0 ; i < tableSize ; i++ ) {
+                if ( table->getCheckHelper( i ) == false && table->getCountHelper( i ) == 0 ) {
+                    topologicalStack.push( ( char )( i + 65 ) );
+                    table->setCheckHelper( i );
+                }
+            }
+        } // end while loop
         cout << endl;
     }
 

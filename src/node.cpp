@@ -9,6 +9,7 @@
 #endif
 
 #include <new>
+#include <vector>
 
 using namespace std;
 
@@ -44,6 +45,18 @@ void adjacencyNode::deleteList( listNode *root ) {
     this->deleteList( root->getNext() );
     delete root;
     root = nullptr;
+}
+
+vector< char > adjacencyNode::updateList() {
+    vector< char > temp;
+    listNode *root = this->head;
+
+    while ( root != nullptr ) {
+        temp.push_back( root->getName() );
+        root = root->getNext();
+    }
+
+    return temp;
 }
 
 bool adjacencyNode::addListNodeHelper( char name ) {
@@ -96,6 +109,6 @@ void adjacencyNode::decreaseCount() {
 }
 
 void adjacencyNode::setCheck() {
-    this->check = !this->check;
+    this->check = true;
     return;
 }

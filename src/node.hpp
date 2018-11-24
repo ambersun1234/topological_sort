@@ -3,6 +3,10 @@
     #include "listNode.hpp"
 #endif
 
+#include <vector>
+
+using namespace std;
+
 class adjacencyNode {
     private:
         int count;
@@ -31,4 +35,5 @@ class adjacencyNode {
         bool addListNodeHelper( char name );
 
         void travelHelper( void display( listNode &root ) );
+        vector< char > updateList();
 };
