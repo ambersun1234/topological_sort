@@ -13,6 +13,10 @@
     #include "listNode.hpp"
 #endif
 
+#include <sstream>
+
+using namespace std;
+
 graph::graph( int size ) {
     this->size = size;
     this->table = new adjacencyNode*[ size ];
@@ -53,8 +57,8 @@ void graph::increaseCountHelper( int index ) {
     this->table[ index ]->increaseCount();
 }
 
-void graph::travelListHelper( int index , void display( listNode &root ) ) {
-    this->table[ index ]->travelHelper( display );
+void graph::travelListHelper( int index , void display( listNode &root ) , void go( listNode &root , ostream &os ) ) {
+    this->table[ index ]->travelHelper( display , go );
 }
 
 char graph::getNameHelper( int index ) {

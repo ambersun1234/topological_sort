@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <stack>
 #include <vector>
 
@@ -20,6 +21,10 @@
 
 using namespace std;
 
+void go( listNode &root , ostream &os = cout ) {
+
+}
+
 void displayList( listNode &root ) {
     cout << " " << root.getName();
 }
@@ -37,6 +42,10 @@ int main( int argc , char const *argv[] ) {
         int temp;
         cout << "node " << table->getNameHelper( i ) << " has how many adjacent node: ";
         cin >> temp;
+        if ( temp > tableSize ) {
+            cout << "adjacent node number can't be larger than table size , abort" << endl;
+            return 1;
+        }
 
         if ( temp > 0 ) {
             char tempNode;
@@ -60,7 +69,7 @@ int main( int argc , char const *argv[] ) {
             " , count = " << table->getCountHelper( i ) <<
             " , check = " << boolalpha << table->getCheckHelper( i ) <<
             " ->";
-        table->travelListHelper( i , displayList );
+        table->travelListHelper( i , displayList , go );
         cout << endl;
     }
     cout << endl;

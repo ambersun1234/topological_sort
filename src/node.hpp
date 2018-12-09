@@ -4,6 +4,7 @@
 #endif
 
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ class adjacencyNode {
     protected:
         void deleteList( listNode *root );
         bool addListNode( char name );
-        void travel( listNode *root , void display( listNode &root ) );
+        void travel( listNode *root , void display( listNode &root ) , void go( listNode &root , ostream &os) );
 
     public:
         adjacencyNode( char input );
@@ -26,6 +27,7 @@ class adjacencyNode {
         char getName();
         int getCount();
         bool getCheck();
+        listNode* getHead();
 
         void decreaseCount();
         void increaseCount();
@@ -34,6 +36,6 @@ class adjacencyNode {
         void deleteListHelper();
         bool addListNodeHelper( char name );
 
-        void travelHelper( void display( listNode &root ) );
+        void travelHelper( void display( listNode &root ) , void go( listNode &root , ostream &os ) );
         vector< char > updateList();
 };

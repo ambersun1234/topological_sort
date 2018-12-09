@@ -8,6 +8,10 @@
     #include "listNode.hpp"
 #endif
 
+#include <sstream>
+
+using namespace std;
+
 class graph {
     private:
         adjacencyNode **table;
@@ -23,7 +27,7 @@ class graph {
         bool setNodeHelper( int index , char name );
 
         char getNameHelper( int index );
-        void travelListHelper( int index , void display( listNode &root ) );
+        void travelListHelper( int index , void display( listNode &root ) , void go( listNode &root , ostream &os ) );
         vector< char > updateListHelper( int index );
 
         int getCountHelper( int index );

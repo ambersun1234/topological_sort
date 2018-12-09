@@ -9,9 +9,13 @@
 #endif
 
 #include <new>
+#include <sstream>
+#include <iostream>
 #include <vector>
 
 using namespace std;
+
+ostringstream oss;
 
 adjacencyNode::adjacencyNode( char input ) : count( 0 ) , check( false ) , name( input ) , head( nullptr ) {
 
@@ -22,13 +26,14 @@ adjacencyNode::~adjacencyNode() {
     this->head = nullptr;
 }
 
-void adjacencyNode::travelHelper( void display( listNode &root ) ) {
-    this->travel( this->head , display );
+void adjacencyNode::travelHelper( void display( listNode &root ) , void go( listNode &root , ostream &os ) ) {
+    this->travel( this->head , display , go );
 }
 
-void adjacencyNode::travel( listNode *root , void display( listNode &root ) ) {
+void adjacencyNode::travel( listNode *root , void display( listNode &root ) , void go( listNode &root , ostream &os ) ) {
     while ( root != nullptr ) {
         display( *root );
+        go( *root , oss );
         root = root->getNext();
     }
     return;
@@ -36,6 +41,7 @@ void adjacencyNode::travel( listNode *root , void display( listNode &root ) ) {
 
 void adjacencyNode::deleteListHelper() {
     this->deleteList( this->head );
+    this->head = nullptr;
 }
 
 void adjacencyNode::deleteList( listNode *root ) {
@@ -96,6 +102,10 @@ bool adjacencyNode::getCheck() {
 
 char adjacencyNode::getName() {
     return this->name;
+}
+
+listNode* adjacencyNode::getHead() {
+    return this->head;
 }
 
 void adjacencyNode::increaseCount() {
