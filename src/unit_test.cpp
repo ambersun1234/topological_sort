@@ -43,17 +43,17 @@ TEST_F( listNodeTest , setter ) {
     EXPECT_EQ( ln1->getNext() , ln2 );
 }
 
+static void go( listNode &root , ostream &os = cout ) {
+    os << " " << root.getName();
+}
+static void displayList( listNode &root ) {
+
+}
+
 class adjacencyNodeTest : public testing::Test {
     protected:
         adjacencyNode *ad1 = new adjacencyNode( 'A' );
         adjacencyNode *ad2 = new adjacencyNode( 'B' );
-    public:
-        static void go( listNode &root , ostream &os = cout ) {
-            os << " " << root.getName();
-        }
-        static void displayList( listNode &root ) {
-
-        }
 };
 
 TEST_F( adjacencyNodeTest , constructor ) {
@@ -107,6 +107,66 @@ TEST_F( adjacencyNodeTest , setter ) {
 
     ad1->setCheck();
     EXPECT_TRUE( ad1->getCheck() );
+}
+
+class graphTest : public testing::Test {
+    protected:
+        graph *g1 = new graph( 5 );
+        graph *g2 = new graph( 10 );
+};
+
+TEST_F( graphTest , constructor ) {
+    EXPECT_EQ( g1->size , 5 );
+    EXPECT_LT( g2->size , 11 );
+
+    for ( int i = 0 ; i < 5 ; i++ ) {
+        EXPECT_EQ( static_cast< int >( g1->table[ i ]->getName() ) , 65 + i );
+        EXPECT_FALSE( g1->table[ i ]->getHead() );
+    }
+    for ( int i = 0 ; i < 10 ; i++ ) {
+        EXPECT_EQ( static_cast< int >( g2->table[ i ]->getName() ) , 65 + i );
+        EXPECT_TRUE( !g2->table[ i ]->getHead() );
+    }
+}
+
+TEST_F( graphTest , setter_getter ) {
+    EXPECT_TRUE( g1->setNodeHelper( 2 , 'C' ) );
+    EXPECT_FALSE( !g1->setNodeHelper( 4 , 'A' ) );
+    EXPECT_EQ( g1->getNameHelper( 2 ) , 'C' );
+    EXPECT_GT( g1->getNameHelper( 4 ) , 'B' );
+
+    EXPECT_EQ( g2->setNodeHelper( 9 , 'P' ) , true );
+    EXPECT_TRUE( g2->setNodeHelper( 9 , 'O' ) );
+    EXPECT_GT( g2->getNameHelper( 9 ) , 'H' );
+
+    EXPECT_EQ( g1->getCountHelper( 0 ) , 0 );
+    EXPECT_TRUE( !g1->getCheckHelper( 3 ) );
+
+    g2->setCheckHelper( 2 );
+    EXPECT_FALSE( !g2->getCheckHelper( 2 ) );
+
+    for ( int i = 0 ; i < 4 ; i++ ) {
+        g1->increaseCountHelper( 0 );
+    }
+    EXPECT_LT( g1->getCountHelper( 0 ) , 5 );
+    g1->decreaseCountHelper( 0 );
+    g1->decreaseCountHelper( 0 );
+    EXPECT_EQ( g1->getCountHelper( 0 ) , 2 );
+}
+
+TEST_F( graphTest , travel ) {
+    EXPECT_EQ( g2->setNodeHelper( 9 , 'P' ) , true );
+    EXPECT_TRUE( g2->setNodeHelper( 9 , 'O' ) );
+    oss.str( string() );
+    g2->travelListHelper( 9 , displayList , go );
+    assert( oss && oss.str() == " P O" );
+    oss.str( string() );
+
+    EXPECT_FALSE( !g1->setNodeHelper( 4 , 'A' ) );
+    oss.str( string() );
+    g1->travelListHelper( 4 , displayList , go );
+    assert( oss && oss.str() == " A" );
+    oss.str( string() );
 }
 
 GTEST_API_ int main( int argc , char *argv[] ) {

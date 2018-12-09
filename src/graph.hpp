@@ -10,12 +10,15 @@
 
 #include <sstream>
 
+#include "gtest/gtest_prod.h"
+
 using namespace std;
 
 class graph {
     private:
         adjacencyNode **table;
         int size;
+        FRIEND_TEST( graphTest , constructor );
 
     protected:
         bool setNode( int index , char name );
