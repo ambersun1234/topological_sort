@@ -86,17 +86,17 @@ graph.o : $(USER_DIR)/graph.cpp $(USER_DIR)/graph.hpp
 main.o : $(USER_DIR)/main.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-graph_unittest.o : $(USER_DIR)/listNode.cpp $(USER_DIR)/listNode.hpp \
+graph : $(USER_DIR)/node.o $(USER_DIR)/graph.o $(USER_DIR)/listNode.o $(USER_DIR)/main.o $(GTEST_HEADERS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ $(USER_DIR)/*.o
+
+unit_test.o : $(USER_DIR)/listNode.cpp $(USER_DIR)/listNode.hpp \
 				   $(USER_DIR)/node.cpp $(USER_DIR)/node.hpp \
 				   $(USER_DIR)/graph.cpp $(USER_DIR)/graph.hpp \
 				   $(USER_DIR)/unit_test.cpp $(GTEST_HEADERS)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(USER_DIR)/unit_test.cpp -o $@
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $(USER_DIR)/unit_test.cpp
 
-graph_unittest : graph_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-
-graph : $(USER_DIR)/node.o $(USER_DIR)/graph.o $(USER_DIR)/listNode.o $(USER_DIR)/main.o $(GTEST_HEADERS)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(USER_DIR)/*.o -o $@
+graph_unittest : $(USER_DIR)/unit_test.o $(USER_DIR)/listNode.o $(USER_DIR)/node.o $(USER_DIR)/graph.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread -o $@ $^
 
 .PHONY:
 	all clean test
